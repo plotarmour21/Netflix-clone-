@@ -1,43 +1,41 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import requests from "./request"; // adjust the path accordingly
+import React from "react";
+import MovieList from "./components/MovieList";
+import requests from "./request";
 
-const MovieList = () => {
-  const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    const fetchMovies = async () => {
-      try {
-        const response = await axios.get(requests.fetchTrending);
-        setMovies(response.data.results);
-      } catch (error) {
-        setError(error);
-      }
-    };
-
-    fetchMovies();
-  }, []);
-
-  if (error) return <div>Error fetching movies: {error.message}</div>;
-
+const App = () => {
   return (
-    <div>
-      <h1>Trending Movies</h1>
-      <ul>
-        {movies.map((movie) => (
-          <li key={movie.id}>
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              style={{ width: "150px", height: "225px" }} // Adjust size as needed
-            />
-            <div>{movie.title}</div>
-          </li>
-        ))}
-      </ul>
+    <div className="bg-zinc-900">
+      <h1 className="flex font-bold text-3xl text-white bg-zinc-700 justify-center py-4">
+        Trending Movies
+      </h1>
+      <MovieList request={requests.fetchTrending} />
+
+      <h2 className="flex font-bold text-2xl text-white justify-center mt-6">
+        Top Rated Movies
+      </h2>
+      <MovieList request={requests.fetchTopRated} />
+
+      <h2 className="flex font-bold text-2xl text-white justify-center mt-6">
+        Upcoming Movies
+      </h2>
+      <MovieList request={requests.fetchUpcoming} />
+
+      <h2 className="flex font-bold text-2xl text-white justify-center mt-6">
+        Now Playing
+      </h2>
+      <MovieList request={requests.fetchNowPlaying} />
+
+      <h2 className="flex font-bold text-2xl text-white justify-center mt-6">
+        Action Movies
+      </h2>
+      <MovieList request={requests.fetchActionMovies} />
+
+      <h2 className="flex font-bold text-2xl text-white justify-center mt-6">
+        Comedy Movies
+      </h2>
+      <MovieList request={requests.fetchComedyMovies} />
     </div>
   );
 };
 
-export default MovieList;
+export default App;
