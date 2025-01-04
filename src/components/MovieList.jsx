@@ -16,7 +16,7 @@ const MovieList = ({ request }) => {
     };
 
     fetchMovies();
-  }, [request]); // Fetch movies when the request changes
+  }, [request]); 
 
   if (error) return <div>Error fetching movies: {error.message}</div>;
 
@@ -30,7 +30,7 @@ const MovieList = ({ request }) => {
               <img
                 src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
                 alt={movie.title}
-                style={{ width: "160px", height: "225px" }} // Adjust size as needed
+                style={{ width: "160px", height: "225px" }} 
               />
               <div className="text-center mt-2">{movie.title}</div>
             </li>
